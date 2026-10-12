@@ -1,57 +1,45 @@
 {
  "spec": "Project: Apogee RHBD I/O Cells (Standard flow)\n# Project Overview\n\n**Name:** Apogee RHBD I/O Cells (Standard flow)\n\n**Vision & Background**\n- Develop a radiation\u2011hardened 5\u202fV I/O cell library on SkyWater 130\u202fnm (g5v0d10v5) for space and high\u2011reliability applications.\n- Operate over **\u201155\u202f\u00b0C to\u202f+125\u202f\u00b0C** and **1.4\u202fV to\u202f5.5\u202fV** supply ranges.\n- Deliver a fully simulated, layout\u2011verified, repository\u2011ready set of four analog blocks.\n\n**Scope**\n1. **Four analog blocks**\n   - **LS_UP** \u2013 Level\u2011shifter from core supply to 5\u202fV I/O rail.\n   - **POR** \u2013 Power\u2011on\u2011reset that asserts only after a valid supply is present.\n   - **CS_IN** \u2013 Cold\u2011spare\u2011safe input buffer preventing back\u2011powering.\n   - **CS_OUT** \u2013 Cold\u2011spare\u2011safe output driver with enable, functional down to **\u201155\u202f\u00b0C** and **1.4\u202fV**.\n2. **Simulation\u2011first** approach: transistor\u2011level netlist, supply sweep, PVT corner analysis for each block.\n3. **Layout\u2011second**: full layout, DRC/LVS, clean sign\u2011off.\n4. **Top\u2011level integration**: assemble the four blocks, run chip\u2011level checks, and commit artefacts to the repository.\n5. **No PCB** \u2013 Project ends at silicon\u2011level IP delivery.\n\n**Long\u2011Term Vision**\n- Create a reusable radiation\u2011hardening methodology for future SkyWater\u2011130 analog IP.\n- Provide a proven reference that can be integrated into multiple spacecraft or high\u2011reliability ASICs.\n\n**Project Execution Model**\n- Each block follows a **Simulation \u2192 Layout** story.\n- Simulation tasks are owned by the **Analog IC Design Engineer**.\n- Layout tasks are owned by the **Analog Layout Engineer**.\n- Top\u2011level integration is a separate story after all blocks are completed.\nInstructions: <p>One story per circuit block. In every block story, a Simulation task (transistor netlist, supply sweep, PVT) comes first and a Layout task (layout, DRC, LVS) depends on it. Simulation tasks belong to the Analog IC Design Engineer, Layout tasks to the Analog Layout Engineer. Top-level integration is its own story after all blocks. No PCB in this project.</p>\n\nEpic: Analog Block Design, Simulation & Layout\nDesign, simulate, and layout the four radiation\u2011hardened I/O cell blocks (LS_UP, POR, CS_IN, CS_OUT) in the SkyWater 130\u202fnm RHBD process. For each block, produce a transistor\u2011level netlist, run full supply, temperature, process\u2011corner and SEU sweeps, and achieve 100\u202f% simulation coverage. After simulation sign\u2011off, create the Magic/Virtuoso layout, run DRC and LVS, and deliver a clean GDSII file. All block artefacts must be ready before any top\u2011level integration begins. The work must respect the project\u2019s start (2026\u201110\u201112) and due (2026\u201110\u201131) dates, use only the AI\u2011employee team members, and follow the Simulation \u2192 Layout dependency per block.\nExpectations: Four fully verified analog blocks with zero DRC/LVS errors and complete simulation reports delivered by 2026\u201110\u201131.\n\nStory: Design, Simulate, and Layout LS_UP Level\u2011shifter Block\nCreate the transistor\u2011level netlist for the LS_UP level\u2011shifter, run full supply\u2011range (1.4\u20115.5\u202fV), temperature (\u201155\u202f\u00b0C\u2011125\u202f\u00b0C), all PVT corners and SEU simulations, then produce a DRC/LVS\u2011clean Magic layout. After layout sign\u2011off, perform an independent post\u2011layout verification and archive all artefacts. This delivers a verified LS_UP block ready for top\u2011level integration.",
  "plan": {
-  "title": "LS_UP Level-shifter Design, Simulation, and Layout",
-  "summary": "Import LS_UP reference cell, simulate across supply, temperature, and process corners, run PVT verification, generate layout and verify DRC/LVS.",
+  "title": "LS_UP Layout Phase",
+  "summary": "Plan to assemble the hierarchical LS_UP level\u2011shifter layout from its verified sub\u2011cells and generate DRC/LVS\u2011clean GDS.",
   "deliverables": [],
   "phases": [
    {
-    "id": "task-8f5bcdc2-8cf9-44d4-9f99-f06b7a776dc0",
-    "name": "Generate LS_UP transistor netlist and run full PVT/SEU simulations",
-    "goal": "design the circuit: write or import the cell netlist(s), simulate them at every supply, and run the PVT check (and the SEU check for storage cells). Do NOT plan any layout.",
+    "id": "task-4639a813-4c0c-44e9-8fa7-305354f39ba2",
+    "name": "Create LS_UP Magic layout and perform DRC/LVS",
+    "goal": "lay out the cell(s): generate the layout of each leaf cell (assemble_top for a hierarchical/top cell), which runs DRC and LVS. Do NOT plan new simulations.",
     "steps": [
      {
       "action": "import_reference_cell",
       "args": {
        "file": "level_shifter.sp"
       },
-      "description": "Import reference LS_UP level shifter cell",
+      "description": "Import verified LS_UP level_shifter reference cell",
       "id": "s1_import_reference_cell_LS_UP",
       "target": "LS_UP"
      },
      {
-      "action": "simulate_cell",
-      "description": "Run functional simulation across supply range",
-      "id": "s2_simulate_cell_LS_UP",
-      "target": "LS_UP",
-      "args": {}
-     },
-     {
-      "action": "pvt_check",
-      "description": "Run PVT corner sweep verification",
-      "id": "s3_pvt_check_LS_UP",
-      "target": "LS_UP",
-      "args": {}
-     },
-     {
-      "action": "write_document",
-      "args": {},
-      "description": "Write simulation and PVT verification report",
-      "id": "s4_write_document_lsup_sim_report",
-      "target": "lsup_sim_report"
-     },
-     {
-      "action": "write_document",
-      "description": "Write layout DRC/LVS report",
-      "id": "s5_write_document_lsup_layout_report",
-      "target": "lsup_layout_report",
-      "args": {}
+      "action": "assemble_top",
+      "args": {
+       "rows": [
+        [
+         "LS_UP_LS_CORE",
+         "LS_UP_LS_IN"
+        ]
+       ]
+      },
+      "description": "Create hierarchical LS_UP layout and run DRC/LVS",
+      "id": "s2_assemble_top_LS_UP",
+      "target": "LS_UP"
      }
     ],
     "deliverables": []
    }
   ],
-  "notes": []
+  "notes": [
+   "Checks added by the system: pvt_check LS_UP"
+  ]
  },
  "plan_approved": true,
  "phase": 1,
@@ -1288,6 +1276,10 @@
   {
    "time": "21:04:52",
    "event": "phase task-8f5bcdc2-8cf9-44d4-9f99-f06b7a776dc0 done, waiting for review"
+  },
+  {
+   "time": "21:06:38",
+   "event": "phase task-4639a813-4c0c-44e9-8fa7-305354f39ba2 done, waiting for review"
   }
  ],
  "plan_status": "approved"
