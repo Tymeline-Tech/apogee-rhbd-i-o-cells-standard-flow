@@ -1,0 +1,202 @@
+{
+ "passed": true,
+ "kind": "cold_spare_out",
+ "subckt": "CS_OUT",
+ "per_vdd": [
+  {
+   "vdd": 1.4,
+   "label": "cold_spare_out@1.4V",
+   "passed": true,
+   "checks": [
+    {
+     "name": "netlist parsed and simulated",
+     "passed": true,
+     "detail": "ok"
+    },
+    {
+     "name": "powered: PAD follows IN (50 fF load, OE=1)",
+     "passed": true,
+     "detail": "10 samples OK"
+    },
+    {
+     "name": "drives 50 fF load (10-90% rise/fall < 20 ns)",
+     "passed": true,
+     "detail": "rise 1.33 ns, fall 0.82 ns"
+    },
+    {
+     "name": "powered, OE=0: PAD high-impedance (100 kOhm pull to VDD/2 dominates, within 10% of VDD)",
+     "passed": true,
+     "detail": "PAD 0.700, 0.700, 0.700, 0.700 V (VDD/2 = 0.7 V)"
+    },
+    {
+     "name": "settled levels restored (<20% / >80% of rail)",
+     "passed": true,
+     "detail": "all sampled levels restored"
+    }
+   ],
+   "measurements": {
+    "load_fF": 50,
+    "rise_10_90_ns": 1.327,
+    "fall_90_10_ns": 0.821,
+    "pad_hiz_v": [
+     0.6999,
+     0.7,
+     0.7,
+     0.7
+    ],
+    "hiz_leak_nA": 1.346
+   }
+  },
+  {
+   "vdd": 3.3,
+   "label": "cold_spare_out@3.3V",
+   "passed": true,
+   "checks": [
+    {
+     "name": "netlist parsed and simulated",
+     "passed": true,
+     "detail": "ok"
+    },
+    {
+     "name": "powered: PAD follows IN (50 fF load, OE=1)",
+     "passed": true,
+     "detail": "10 samples OK"
+    },
+    {
+     "name": "drives 50 fF load (10-90% rise/fall < 20 ns)",
+     "passed": true,
+     "detail": "rise 0.24 ns, fall 0.29 ns"
+    },
+    {
+     "name": "powered, OE=0: PAD high-impedance (100 kOhm pull to VDD/2 dominates, within 10% of VDD)",
+     "passed": true,
+     "detail": "PAD 1.650, 1.650, 1.650, 1.650 V (VDD/2 = 1.65 V)"
+    },
+    {
+     "name": "settled levels restored (<20% / >80% of rail)",
+     "passed": true,
+     "detail": "all sampled levels restored"
+    }
+   ],
+   "measurements": {
+    "load_fF": 50,
+    "rise_10_90_ns": 0.243,
+    "fall_90_10_ns": 0.286,
+    "pad_hiz_v": [
+     1.65,
+     1.65,
+     1.65,
+     1.65
+    ],
+    "hiz_leak_nA": 0.08
+   }
+  },
+  {
+   "vdd": 5.5,
+   "label": "cold_spare_out@5.5V",
+   "passed": true,
+   "checks": [
+    {
+     "name": "netlist parsed and simulated",
+     "passed": true,
+     "detail": "ok"
+    },
+    {
+     "name": "powered: PAD follows IN (50 fF load, OE=1)",
+     "passed": true,
+     "detail": "10 samples OK"
+    },
+    {
+     "name": "drives 50 fF load (10-90% rise/fall < 20 ns)",
+     "passed": true,
+     "detail": "rise 0.16 ns, fall 0.28 ns"
+    },
+    {
+     "name": "powered, OE=0: PAD high-impedance (100 kOhm pull to VDD/2 dominates, within 10% of VDD)",
+     "passed": true,
+     "detail": "PAD 2.750, 2.750, 2.750, 2.750 V (VDD/2 = 2.75 V)"
+    },
+    {
+     "name": "settled levels restored (<20% / >80% of rail)",
+     "passed": true,
+     "detail": "all sampled levels restored"
+    }
+   ],
+   "measurements": {
+    "load_fF": 50,
+    "rise_10_90_ns": 0.161,
+    "fall_90_10_ns": 0.285,
+    "pad_hiz_v": [
+     2.75,
+     2.75,
+     2.75,
+     2.75
+    ],
+    "hiz_leak_nA": 0.124
+   }
+  },
+  {
+   "vdd": 0.0,
+   "label": "cold_spare_out@unpowered",
+   "passed": true,
+   "checks": [
+    {
+     "name": "netlist parsed and simulated",
+     "passed": true,
+     "detail": "ok"
+    },
+    {
+     "name": "unpowered (VDD held at 0 V): |I(PAD)| < 1 uA with PAD at 3.3 V",
+     "passed": true,
+     "detail": "I(PAD) = 10.64 nA (steady, last 5 us)"
+    },
+    {
+     "name": "unpowered (VDD held at 0 V): |I(PAD)| < 1 uA with PAD at 5.5 V",
+     "passed": true,
+     "detail": "I(PAD) = 14.1 nA (steady, last 10 us); into VDD 0.02664 nA"
+    },
+    {
+     "name": "unpowered (VDD floating: 1 MOhm + 10 pF to VSS): VDD rise < 0.2 V with PAD at 5.5 V (no back-powering)",
+     "passed": true,
+     "detail": "VDD max 0.005458 V, final 3.99e-05 V after 59 us (RC = 10 us)"
+    }
+   ],
+   "measurements": {
+    "pad_v_unpowered": 5.5,
+    "I_pad_unpowered_3.3V_nA": 10.6356,
+    "I_pad_unpowered_5.5V_nA": 14.097,
+    "I_into_vdd_unpowered_5.5V_nA": 0.0266,
+    "vdd_floating_max_v": 0.00546,
+    "vdd_floating_final_v": 4e-05,
+    "I_pad_vdd_floating_5.5V_nA": 10.6535
+   },
+   "unpowered": true
+  }
+ ],
+ "notes": "Simulated with sky130 device models (sky130_fd_pr__nfet_g5v0d10v5, sky130_fd_pr__pfet_g5v0d10v5), corner tt, 27 \u00b0C. Pre-layout: no parasitics; one corner and temperature per run (PVT sweeps and Monte Carlo are separate runs).",
+ "log_tail": "",
+ "structural": {
+  "ok": true,
+  "issues": [],
+  "warnings": [
+   "CS_OUT_CS_OUT_DRV: PMOS MPO bulk on 'NW' (expected a VDD-like net)",
+   "CS_OUT_CS_OUT_DRV: PMOS MW1 bulk on 'NW' (expected a VDD-like net)",
+   "CS_OUT_CS_OUT_DRV: PMOS MW2 bulk on 'NW' (expected a VDD-like net)",
+   "CS_OUT_CS_OUT_DRV: PMOS MT bulk on 'NW' (expected a VDD-like net)",
+   "CS_OUT_CS_OUT_DRV: PMOS MPP bulk on 'NW' (expected a VDD-like net)"
+  ],
+  "device_count": 17,
+  "subckts_checked": [
+   "CS_OUT",
+   "CS_OUT_CS_OUT_DRV",
+   "CS_OUT_CS_OUT_PRE"
+  ],
+  "ports": [
+   "IN",
+   "PAD",
+   "VDD",
+   "VSS",
+   "OE"
+  ]
+ }
+}

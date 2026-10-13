@@ -1,0 +1,12 @@
+.subckt CS_OUT_CS_OUT_PRE IN OE PGI NG VDD VSS
+MP0 oeb OE VDD VDD pch W=0.84 L=0.5
+MN0 oeb OE VSS VSS nch W=0.42 L=0.5
+MP1 PGI IN VDD VDD pch W=1 L=0.5
+MP2 PGI OE VDD VDD pch W=1 L=0.5
+MN1 PGI IN x1 VSS nch W=1 L=0.5
+MN2 x1 OE VSS VSS nch W=1 L=0.5
+MP3 NG IN x2 VDD pch W=2 L=0.5
+MP4 x2 oeb VDD VDD pch W=2 L=0.5
+MN3 NG IN VSS VSS nch W=0.5 L=0.5
+MN4 NG oeb VSS VSS nch W=0.5 L=0.5
+.ends
